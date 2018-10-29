@@ -1,0 +1,305 @@
+<script>
+  tablica = [
+    ["ODGRNOIK", "ogrodnik"],
+    ["ARLZEK", "lekarz"],
+    ["RZKEJAOL", "kolejarz"],
+    ["MYNARZRA", "marynarz"],
+    ["KATWOAD", "adwokat"],
+    ["MENIKCHA", "mechanik"],
+    ["KARZPIE", "piekarz"],
+    ["AFTOFOGR", "fotograf"],
+    ["IKGRNÓ", "górnik"],
+    ["OLIPANTCJ", "policjant"],
+    ["IKTWONRA", "ratownik"],
+    ["KICAEOWR", "kierowca"],
+    ["HYLIKAUDR", "hydraulik"],
+    ["GARZESTRZMI", "zegarmistrz"],
+  ];
+
+
+
+
+
+  // for(i=0;i<tablica.length;i++){
+  // 	for(z=0;z<tablica[i].length;z++){
+  // 		console.log(tablica[i][z]);
+  // 	}
+
+  // }
+  var isTimerOn = false;
+  var liczba = '';
+  var pkty = 0;
+  var counter = 0;
+
+  //FUNCKJA TWORZĄCA TRESC NA PODSTAWIE TABLICY
+  function stworzTabele() {
+    for (i = 0; i < tablica.length; i++) {
+      var y = document.createElement("INPUT");
+      y.setAttribute("type", "text");
+      y.setAttribute("readonly", "readonly");
+      y.setAttribute("value", tablica[i][0]);
+      y.setAttribute("id", "ida" + i);
+      y.style.float = "left";
+      y.style.display = "block";	
+      y.style.marginRight="20px";
+      y.style.borderRadius="0px 20px 20px 0px";
+	  y.style.border="2px solid blue";
+      y.style.textAlign="center";
+      y.style.marginBottom="10px";
+      var x = document.createElement("INPUT");
+      x.setAttribute("type", "text");
+      x.setAttribute("id", "id" + i);
+      x.setAttribute("placeholder", "Wpisz zawód");
+      y.style.float = "left";
+      x.style.display = "block";
+      x.style.marginLeft="20px";
+      x.style.borderRadius="20px 0px 0px 20px";
+	  x.style.border="2px solid blue";
+      x.style.textAlign="center";
+      x.style.marginBottom="10px";
+      var z = document.createElement("br");
+      //x.style.width="50%";
+      document.getElementById("darus").appendChild(y);
+      document.getElementById("darus").appendChild(x);
+      //document.getElementById("darus").appendChild(z);	
+    }
+  }
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById("tekst").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+  function sprawdz() {
+    for (i = 0; i < tablica.length; i++) {
+      if (tablica[i][1] == document.getElementById("id" + i).value.toLowerCase()) pkty++;
+    }
+    document.getElementById("tekst").innerHTML = "Uzyskałeś " + Math.floor(((pkty / tablica.length) * 100)) + "% poprawnych odpowiedzi";
+  }
+  //STOPER
+  function countdown() {
+
+    var polski = "sekund";
+    var polski2 = "sekundy";
+    var polski3 = "sekund";
+    if (counter > 4) document.getElementById("stoper").value = counter + " " + polski;
+    else if (counter > 0) document.getElementById("stoper").value = counter + " " + polski2;
+    else document.getElementById("stoper").value = counter + " " + polski3;
+    counter--;
+    if (counter > -1) setTimeout("countdown();", 1000);
+    else {
+      clearTimeout();
+    }
+  }
+
+  function startMe() {
+    console.log("FUNKCJA START");
+    if (!isTimerOn) {
+      isTimerOn = true;
+      stworzTabele();
+      counter = 60;
+      countdown();
+      setTimeout("sprawdz()", 60000);
+    }
+
+  }
+
+</script>
+
+
+
+<!--  <div id="gra" class="main mx-auto">
+  <form>
+    <input type="button" value="START" onclick="startMe();" id="akcja" class="btn btn-primary w-100">
+    <br><br>
+    <input type="text" id="stoper" style="width:100%;" readonly="readonly" /><br>
+    <input type="text"  id="info" value="" style="width:30%;height: 20%" readonly="readonly"/> <br>
+    <textarea name="message" rows="4" style="width:100%;font-size:100%;" id="poletekstowe">Za chwilę w lewej kolumnie zobaczysz nazwy zawodów, rozszyfruj  i wpisz je w pola obok. Masz na to MINUTĘ. Duże i małe litery nie mają znaczenia. Jeśli jesteś gotowy kliknij START.
+	</textarea><br>
+    <div id="darus"></div>
+    <br>
+    <div id="obrazek"><i id="ikonka" class=""></i></div>
+</div> 
+-->
+<!-- // Intrukcja -->
+
+   <div class="container main mx-auto">
+   
+   <div class="alert alert-light alert-lg text-center" role="alert">
+    <strong class="text-uppercase display-4 font-weight-bold">Rozszyfruj zawody</strong> 
+</div>
+
+
+
+<ul class="list-group h2">
+  <li class="list-group-item subtitles d-flex justify-content-between align-items-center">
+   Zadaniem jest rozszyfrowanie nazwy zawodu 
+    <span class="badge badge-primary badge-pill" style="background-color: #dad7eb; color:black">1</span>
+  </li>
+  
+  <li class="list-group-item subtitles d-flex justify-content-between align-items-center">
+   Będzie 60 sekund na wykonanie zadania
+    <span class="badge badge-primary badge-pill"style="background-color: #dad7eb; color:black">2</span>
+  </li>
+  <li class="list-group-item subtitles d-flex justify-content-between align-items-center">
+   Na końcu Dr Szydłowski poinformuje o wyniku
+    <span class="badge badge-primary badge-pill" style="background-color: #dad7eb; color:black">3</span>
+  </li>
+  
+   <li class="list-group-item subtitles d-flex justify-content-between align-items-center">
+   Postępuj zgodnie z instrukcjami Dr Szydłowskiego
+    <span class="badge badge-primary badge-pill" style="background-color: #dad7eb; color:black">4</span>
+     
+
+  </li>
+</ul>
+</div>
+
+
+<!-- //GRA -->
+
+<div class="container main mx-auto" id="gra">
+
+	<form>
+		<div class="container">
+			<div class="row">
+
+				<input type="button" class="btn col-12 btn btn-lg btn-success my-3 text-uppercase shadow-lg p-3 mb-5 rounded" style="letter-spacing: 5px" onclick="startMe();" id="akcja" value="Rozpocznij"/>
+
+
+			</div>
+		</div>
+
+		<div class="container " style="height: 400px">
+			<div class="row">
+
+				<div class="col-sm-4 border-success " style="font-size:130%;border:solid green 2px;border-radius:30px 30px 0px 30px; height: 200px;" >
+					<p class="mx-20" style="font-family:verdana;" id="tekst">Kliknij Rozpocznij</p>
+			
+
+				</div>
+				<div class="col-sm-7 col-offset-1" >
+				<img src="img/doctor2.svg" class="img-fluid mx-auto" style="weight: 20%; height: 30%" alt="doktor" >
+				</div>
+
+			</div>
+		</div>
+
+
+
+		<div class="container">
+			<div class="row">
+
+				<input class="col-6 h-25 btn-lg mx-auto my-3 shadow-lg p-3 mb-5" type="text" id="stoper" readonly="readonly" style="border-radius: 15px; border:1px solid blue;text-align: center" />
+
+
+			</div>
+		</div>
+
+
+
+		<div class="container ">
+			<div class="row" >
+				
+					<div id="darus" class=" mx-auto">
+					</div>
+					<div style="clear:both">
+					</div>
+				
+			</div>
+		</div>
+<div id="obrazek"><i id="ikonka" class=""></i>
+				</div>
+
+
+	</form>
+</div>
+
+
+
+
+
+
+
+<div class="container main w-100 mx-auto">
+	<footer class="page-footer footerMain font-small pt-2 ">
+
+		<!-- Footer Links -->
+		<div class="container-fluid text-center text-md-left">
+
+
+			<!-- Grid row -->
+			<div class="row shadow-lg p-3 mb-5 rounded align-items-center">
+
+				<!-- Grid column -->
+				<div class="col-md-3 mt-md-0 mt-3 text-center">
+
+					<!-- Content -->
+					<i class="fas fa-brain fa-2x text-secondary"></i>	<h4> MistrzPamieci.pl
+						<h4>
+							
+							<div class="container mx-auto d-block ">
+								<div class="row ">
+									<div class=" d-sm-block mx-auto">
+												
+
+
+									</div>
+								</div>
+
+							</div>
+				</div>
+
+
+				<div class="col-md-6 mt-md-0 mt-3">					
+
+					<h5 class="text-center font-weight-bold">Umysł w świetnej kondycji</h5>
+					<ul class="list-unstyled text-center">
+						<li>
+							<p>Pamięć</p>
+						</li>
+
+						<li>
+							<p>Wyobraźnia</p>
+						</li>
+						<li>
+							<p>Koncentracja</p>
+						</li>
+
+						<li>
+							<p>Spostrzegawczość</p>
+						</li>
+
+
+					</ul>					
+
+				</div>
+				
+				<hr class="clearfix w-100 d-md-none pb-3">
+
+				
+				<div class="col-md-3 mb-md-0 mb-2">
+
+
+					<div class="contactIcons mx-auto">
+						<a href="mailto:info@mistrzpamieci.pl" target="_blank"><i class="fas fa-envelope fontelloCard" title="e-mail"> </i></a>
+
+					</div>
+
+				</div>
+
+
+			</div>
+
+		</div>
+		
+		<div class="footer-copyright text-center py-3 font-">© 2018 Copyright: Danuta Nazarewska, Dorota Turkowska, Dariusz Szydłowski. All right reserved.
+
+       </div>
+
+</footer>
+</div>
+
+
+

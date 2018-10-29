@@ -1,0 +1,334 @@
+<script>
+  var liczba = '';
+  var counter = 0;
+  var isTimerOn = false;
+  var yes = new Audio("dzwieki/sukces.wav");
+  var no = new Audio("dzwieki/porazka.wav");
+  //funkcja losująca 20 cyfrową liczbę
+  //pisanie tekstu
+  var i = 0;
+  var text;
+  var speed = 70;
+
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById("tekst").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  function zaladujLiczbe() {
+
+    for (b = 0; b < 20; b++) {
+      cyfra = Math.floor(Math.random() * 10);
+      if (b == 0 && cyfra == 0) {
+        cyfra += 1;
+      };
+      liczba += cyfra;
+    }
+
+  }
+  // Etap pierwszy
+  function etap_1() {
+    console.log("ETAP PIERWSZY");
+    document.getElementById("tekst").innerHTML = "";
+    text = "Dzień dobry, Dr Szydłowski, przy odrobinie Twojego zaangażowania uczynię Ciebie mistrzem pamięci! \n Kliknij START, aby zacząć..."; 
+    
+    console.log(text);
+    typeWriter();
+    console.log(i);
+    document.getElementById("akcja").setAttribute("value", "START");
+    document.getElementById("akcja").setAttribute("onclick", "etap_2()");
+
+  }
+  //funckja losujaca liczbę
+
+
+  console.log(liczba);
+  //Etap drugi
+  function etap_2() {
+    counter = 30;
+    countdown();
+    console.log("ETAP DRUGI");
+    document.getElementById("tekst").innerHTML = "";
+    document.getElementById("akcja").setAttribute("value", "DO DZIEŁA!");
+    document.getElementById("akcja").setAttribute("onclick", "");
+    document.getElementById("tekst").innerHTML = "Oto liczba : <h4>" + liczba + "</h4>";
+    setTimeout("etap_3()", 30000);
+
+  }
+  //Etap trzeci
+  function etap_3() {
+    counter = 30;
+    console.log("ETAP TRZECI");
+    countdown();
+    document.getElementById("akcja").setAttribute("value", "WPISZ POPRAWNĄ LICZBĘ");
+    document.getElementById("tekst").innerHTML = "Wpisz liczbę w polu |TU WPISZ LICZBĘ|";
+    setTimeout("etap_4()", 30000);
+  }
+  //Etap Czwarty
+  function etap_4() {
+    console.log("ETAP CZWARTY");
+    if (document.getElementById("wpisz").value == liczba) {
+      //SUKCES!
+      yes.play();
+      document.getElementById("akcja").setAttribute("value", "Zagraj ponownie");
+      document.getElementById("akcja").setAttribute("onclick", "startMe()");
+      document.getElementById("ikonka").setAttribute("class", "fas fa-thumbs-up display-1");
+      document.getElementById("ikonka").style.color = "green";
+      document.getElementById("wpisz").value = "";
+      document.getElementById("stoper").value = "";
+      document.getElementById("tekst").innerHTML = "Brawooo! Wpisałeś poprawną liczbę :-) Kliknij przycisk <strong><br>|Zagraj ponownie|</strong>";
+      clearTimeout();
+      counter = 0;
+      i = 0;
+
+
+
+
+    } else {
+      //Porażka
+      no.play();
+      document.getElementById("akcja").setAttribute("value", "Zagraj ponownie");
+      document.getElementById("akcja").setAttribute("onclick", "startMe()");
+      document.getElementById("ikonka").setAttribute("class", "fas fa-thumbs-down display-1");
+      document.getElementById("ikonka").style.color = "red";
+      document.getElementById("wpisz").value = "";
+      document.getElementById("stoper").value = "";
+      document.getElementById("tekst").innerHTML = "Niestety, nie udało się, następnym razem będzie lepiej! Kliknij przycisk <strong>|Zagraj ponownie|</strong>";
+      clearTimeout();
+      counter = 0;
+      i = 0;
+
+    }
+  }
+  //STOPER
+  function countdown() {
+
+    var polski = "sekund";
+    var polski2 = "sekundy";
+    var polski3 = "sekund";
+    if (counter > 4) document.getElementById("stoper").value = counter + " " + polski;
+    else if (counter > 1) document.getElementById("stoper").value = counter + " " + polski2;
+    else document.getElementById("stoper").value = counter + " " + polski3;
+    counter--;
+    if (counter > 0) setTimeout("countdown();", 1000);
+    else {
+      clearTimeout();
+      counter = 0;
+
+    }
+  }
+  // Funkcja zaczynająca grę
+  function startMe() {
+    console.log("FUNCKJA START");
+    if (!isTimerOn) {
+      isTimerOn = true;
+      document.getElementById("ikonka").setAttribute("class", "");
+      liczba = '';
+      document.getElementById("tekst").innerHTML = "";
+      zaladujLiczbe();
+      etap_1();
+
+    } else {
+      document.getElementById("ikonka").setAttribute("class", "");
+      clearTimeout();
+      liczba = '';
+      document.getElementById("tekst").innerHTML = "";
+      zaladujLiczbe();
+      etap_1();
+    }
+
+  }
+</script>
+
+
+   <div class="container main mx-auto">
+   <div class="alert alert-light alert-lg text-center" role="alert">
+    <strong class="text-uppercase display-4 font-weight-bold">Odgadnij 20-cyfrową liczbę - POZIOM TRUDNY</strong> 
+</div>
+
+<br>
+
+<ul class="list-group h2">
+  <li class="list-group-item subtitles d-flex justify-content-between align-items-center">
+   Zadaniem jest zapamiętanie 20-cyfrowej liczby
+    <span class="badge badge-primary badge-pill" style="background-color: #dad7eb; color:black">1</span>
+  </li>
+  
+  <li class="list-group-item subtitles d-flex justify-content-between align-items-center">
+   Będzie 30 sekund na zapamiętanie liczby
+    <span class="badge badge-primary badge-pill"style="background-color: #dad7eb; color:black">2</span>
+  </li>
+  <li class="list-group-item subtitles d-flex justify-content-between align-items-center">
+   Następnie 30 sekund na jej wpisanie w pole "Tu wpisz liczbę"
+    <span class="badge badge-primary badge-pill" style="background-color: #dad7eb; color:black">3</span>
+  </li>
+  
+   <li class="list-group-item subtitles d-flex justify-content-between align-items-center">
+   Postępuj zgodnie z instrukcjami Dr Szydłowskiego
+    <span class="badge badge-primary badge-pill" style="background-color: #dad7eb; color:black">4</span>
+     
+  </li>
+  
+</ul>
+</div>
+
+
+
+
+<!-- //GRA -->
+
+<div class="container main mx-auto" id="gra">
+
+  <form>
+    <div class="container">
+      <div class="row">
+
+        <input type="button" class="btn col-12 btn btn-lg btn-danger my-3 text-monospace shadow-lg p-3 mb-5 rounded" onclick="startMe();" id="akcja" value="Sprawdź się"/>
+
+
+      </div>
+    </div>
+
+    <div class="container " style="height: 400px">
+      <div class="row">
+
+        <div class="col-sm-4 border-danger " style="font-size:130%;border:solid green 2px;border-radius:30px 30px 0px 30px; height: 200px;" >
+          <p class="mx-20" style="font-family:verdana;" id="tekst">Kliknij Sprawdź się</p>
+      
+
+        </div>
+        <div class="col-sm-7 col-offset-1" >
+        <img src="img/doctor2.svg" class="img-fluid mx-auto d-block " style="weight: 20%; height: 30%" alt="doktor" >
+        </div>
+
+      </div>
+    </div>
+
+
+
+<!--
+    <div class="container">
+      <div class="row">
+
+        <input class="col-6 h-25 btn-lg mx-auto d-block my-3 shadow-lg p-3 mb-5" type="text" id="stoper" readonly="readonly" style="border-radius: 15px; border:1px solid blue;text-align: center" />
+
+
+      </div>
+    </div>
+
+
+
+    <div class="container">
+      <div class="row">
+
+        <input type="text" class="  col-6 h-25 btn-lg mx-auto d-block my-3 shadow-lg p-3 mb-5" id="wpisz" value="" style="width:100%; border-radius: 15px; border:1px solid blue;text-align: center" placeholder="TU WPISZ LICZBĘ I CZEKAJ"/><br><br>
+        
+
+      </div>
+    </div>
+-->
+
+
+<div class="container">
+			<div class="row">
+
+				<input class="col-6 h-25 btn-lg mx-auto d-block shadow-lg p-3 mb-2" type="text" id="stoper" readonly="readonly" style="border-radius: 15px; border:1px solid blue;text-align: center" />
+
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+
+				<input type="text" class="  col-6 h-25 btn-lg mx-auto d-block shadow-lg p-3 mb-2" id="wpisz" value="" style="width:100%; border-radius: 15px; border:1px solid blue;text-align: center" placeholder="TU WPISZ LICZBĘ I CZEKAJ" /><br><br>
+
+
+			</div>
+		</div>
+<div id="obrazek"><i id="ikonka" class=""></i>
+        </div>
+
+
+  </form>
+</div>
+
+
+
+<div class="container main w-100 mx-auto">
+	<footer class="page-footer footerMain font-small pt-2 ">
+
+		<!-- Footer Links -->
+		<div class="container-fluid text-center text-md-left">
+
+
+			<!-- Grid row -->
+			<div class="row shadow-lg p-3 mb-5 rounded align-items-center">
+
+				<!-- Grid column -->
+				<div class="col-md-3 mt-md-0 mt-3 text-center">
+
+					<!-- Content -->
+					<i class="fas fa-brain fa-2x text-secondary"></i>	
+					<h4> MistrzPamieci.pl
+						<h4>
+							
+							<div class="container mx-auto d-block ">
+								<div class="row ">
+									<div class=" d-sm-block mx-auto">
+															
+
+
+									</div>
+								</div>
+
+							</div>
+				</div>
+
+
+				<div class="col-md-6 mt-md-0 mt-3">					
+
+					<h5 class="text-center font-weight-bold">Umysł w świetnej kondycji</h5>
+					<ul class="list-unstyled text-center">
+						<li>
+							<p>Pamięć</p>
+						</li>
+
+						<li>
+							<p>Wyobraźnia</p>
+						</li>
+						<li>
+							<p>Koncentracja</p>
+						</li>
+
+						<li>
+							<p>Spostrzegawczość</p>
+						</li>
+
+
+					</ul>					
+
+				</div>
+				
+				<hr class="clearfix w-100 d-md-none pb-3">
+
+				
+				<div class="col-md-3 mb-md-0 mb-2">
+
+
+					<div class="contactIcons mx-auto">
+						<a href="mailto:info@mistrzpamieci.pl" target="_blank"><i class="fas fa-envelope fontelloCard" title="e-mail"> </i></a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-copyright text-center py-3 font-">© 2018 Copyright: Danuta Nazarewska, Dorota Turkowska, Dariusz Szydłowski. All right reserved.
+       </div>
+</footer>
+</div>
+
+

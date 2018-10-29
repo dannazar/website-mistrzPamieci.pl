@@ -1,0 +1,306 @@
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+
+
+
+body {
+	font-family: 'Roboto', arial, sans-serif;	
+	font-size: 1em;
+}
+
+
+
+.main {
+	background-color: #dad7eb;
+	margin: 10px;
+	padding: 40px;
+	border-radius: 7px;
+}
+
+
+h1 {
+	color: dimgray;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-shadow: 0 0 1px black;
+
+}
+
+
+.fontelloCard {
+	font-size: 50px;
+	color: black;
+}
+
+
+
+.contactIcons {
+	width: 80px;
+	height: 80px;
+	background-color: #dad7eb;
+	color: #000;
+	font-size: 3.0em;
+	border: 1px solid black;
+	border-radius: 10px;
+	text-align: center;
+	position: relative;
+	line-height: 80px;
+	transition: all 0.5s ease;
+
+}
+
+.contactIcons:hover {
+	transform: rotate(360deg);
+	border-radius: 100px;
+}
+
+.page-footer ul {
+	line-height: 10px;	
+}
+
+
+.photo {
+	width: 300px;
+	height: 400px;
+	overflow: hidden;
+	/*	object-fit: cover;*/
+}
+
+.photo img {
+	transition: all 0.5s ease-in-out;
+}
+
+.photo:hover img {
+	-webkit-transform: scale(1.15);
+	-ms-transform: scale(1.15);
+	transform: scale(1.15);
+}
+
+/*blinking warning  :)*/
+
+.display-3 {
+	animation-duration: 2500ms;
+	animation-name: blink;
+	animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+
+
+.sizeVer {
+	width: 100px;
+	height: 200px;
+	object-fit: cover;
+
+}
+
+/* gallery - illusion*/
+
+.tz-gallery {
+	padding: 40px;
+}
+
+.tz-gallery .row > div {
+	padding: 2px;
+}
+
+.tz-gallery .lightbox img {
+	width: 100%;
+	border-radius: 0;
+	position: relative;
+}
+
+.tz-gallery .lightbox:before {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -13px;
+	margin-left: -13px;
+	opacity: 0;
+	color: #fff;
+	font-size: 26px;
+	font-family: "fontello";
+	content: '\e851';
+	pointer-events: none;
+	z-index: 9000;
+	transition: 0.4s;
+}
+
+
+.tz-gallery .lightbox:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	content: '';
+	transition: 0.4s;
+}
+
+.tz-gallery .lightbox:hover:after,
+.tz-gallery .lightbox:hover:before {
+	opacity: 1;
+}
+
+.baguetteBox-button {
+	background-color: transparent !important;
+}
+
+/*
+
+ul.lancuchowaM > li {	
+	list-style-type: none;
+	font-size: 20px;
+}
+
+
+ul.lancuchowaM > li:before {
+	font-size: 30px;
+	color: dimgray;
+	font-family: 'fontello';
+		content: '\e87e';
+	font-family: 'FontAwesome';
+	content: '\f0c1'; 
+	margin-right: 20px;	
+}
+
+
+ul.mapy > li {	
+	list-style-type: none;
+	font-size: 20px;
+}
+
+
+ul.mapy > li:before {
+	font-size: 30px;
+	color: dimgray;
+	font-family: 'fontello';
+	content: '\e87f';
+	margin-right: 20px;	
+}
+
+ul.haki > li {	
+	list-style-type: none;	
+	font-size: 20px;
+}
+
+
+
+ul.haki > li:before {
+	font-size: 30px;
+	color: dimgray;
+	font-family: 'fontello';
+	content: '\f13d';
+	margin-right: 20px;	
+}
+*/
+
+
+ul.mapy > li, ul.akronimy > li, ul.lancuchowaM > li, ul.haki > li {	
+	list-style-type: none;
+	font-size: 20px;
+	line-height: 40px;
+	text-ident: 1.3em;
+}
+
+
+ul.mapy > li:before, ul.akronimy > li:before, ul.lancuchowaM > li:before, ul.haki > li:before {
+	font-size: 30px;
+	color: dimgray;	
+	margin-right: 20px;	
+}
+
+
+ul.mapy > li:before {
+font-family: 'fontello';
+	content: '\e87f';	
+}
+
+ul.akronimy > li:before {
+font-family: 'FontAwesome';
+content: '\f06e';
+}
+
+  
+ul.lancuchowaM > li:before {
+	font-family: 'FontAwesome';
+	content: '\f0c1'; 
+}
+
+
+ul.haki > li:before {
+	font-family: 'fontello';
+	content: '\f13d';
+}
+
+
+ol.haki > li {	
+	font-size: 20px;
+	line-height: 40px;
+}
+
+ul.navbar-nav {
+	line-height: 40px;
+}
+
+@media(max-width: 768px) {
+	body {
+		padding: 0;
+	}
+}
+
+
+
+.scrollup {
+	width: 64px;
+	height: 64px;
+	border-radius: 5px;
+	text-decoration: none;
+	background: url('../img/up.png') no-repeat 0px 0px;
+	position: fixed;
+	right: 0px;
+	bottom: 10px;
+	overflow: hidden;
+	display: none;
+
+}
+
+.scrollup:hover  {
+  opacity: .8;
+
+}
+
+
+@media(max-width: 600px) {
+	.carousel {
+		display: none;
+	}
+}
+
+
+@media(max-width: 500px) {
+	h1, h5 {
+
+		font-size: 1em;		
+	}
+	
+	li.subtitles {
+		font-size: 12px;
+	}
+	
+	.display-4 {
+     font-size: 16px;
+	}
+
+}
+

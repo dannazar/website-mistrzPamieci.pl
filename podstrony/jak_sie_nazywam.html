@@ -1,0 +1,399 @@
+<script
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</script>
+
+
+
+<script>
+	//funkcje i zmienne poczatkowe(typewriter i countdown)
+	var isTimerOn = false;
+	var i = 0;
+	var text;
+	var speed = 70;
+	var counter = 0;
+	var pkt=0;
+	$(document).ready(function(){
+		for(g=0;g<10;g++){
+		$("#postac"+g).css("display","none");
+	};
+	})
+	//pisanie
+
+	function typeWriter() {
+		if (i < text.length) {
+			document.getElementById("tekst").innerHTML += text.charAt(i);
+			i++;
+			setTimeout(typeWriter, speed);
+		}
+	}
+
+	//stoper
+	function countdown() {
+
+		var polski = "sekund";
+		var polski2 = "sekundy";
+		var polski3 = "sekund";
+		if (counter > 4) document.getElementById("stoper").value = counter + " " + polski;
+		else if (counter > 1) document.getElementById("stoper").value = counter + " " + polski2;
+		else document.getElementById("stoper").value = counter + " " + polski3;
+		counter--;
+		if (counter > 0) setTimeout("countdown();", 1000);
+		else {
+			clearTimeout();
+			counter = 0;
+
+		}
+	}
+	
+// Etap 1.) Doktor mówi , witam dzisiaj popracujemy nad zapamiętywaniem nazwisk
+	function etap_1(){
+		console.log("ETAP PIERWSZY");
+		document.getElementById("tekst").innerHTML="";
+		text = "Dzień dobry, Dr Szydłowski, dziś zapamiętamy  nazwiska.\nKliknij START, aby zacząć...";	
+		console.log(text);
+		typeWriter();
+		console.log(i);
+		document.getElementById("akcja").setAttribute("value", "START");
+		document.getElementById("akcja").setAttribute("onclick", "etap_2()");
+	}
+// kliknij Start Aby zacząć
+
+
+
+// Etap 2) przycisk zmienia sie na onclick=""
+// Doktor Przypomina o tym że poniżej znajduje sie 9 postaci , 
+// Stoper zostaje uruchomiony
+//wykonujemy countdown
+//Postaci pojawiają sie z efektem FadeOut
+function etap_2(){
+		document.getElementById("tekst").innerHTML="Do dzieła, zjedź na dół!";
+		for(g=0;g<10;g++){	
+		$("#postac"+g).css("display","inline-block");
+		};
+		counter=30;
+		countdown();
+		setTimeout("etap_3()",30000);
+	
+}
+
+
+
+//Etap 3 Uzytkownik ma 20 sekund na uzupełnienie pola , pola input sa wyczyszczone, nalezy je uzupełnic
+function etap_3(){
+	document.getElementById("stoper").value="";
+	console.log("Przeszło do etapu trzeciego!!!");
+	for(g=0;g<10;g++){
+	$("#lepek"+g).attr("value","");
+	$("#lepek"+g).attr("placeholder","Nazwisko?");
+	}	
+	counter=30;
+	countdown();
+	setTimeout("etap_4()",30000);
+}
+
+
+
+
+// Etap 4. Sprawdzenie poprawnosci wyniku i jakas muzyczka inna(może głos doktora?)
+// Stoper może zniknac
+
+function etap_4(){
+	document.getElementById("stoper").value="";
+	console.log("etap 4");
+	if(document.getElementById("lepek0").value.toLowerCase()=="szarata"){ pkt++;};
+	if(document.getElementById("lepek1").value.toLowerCase()=="ojczenasz"){ pkt++;};
+	if(document.getElementById("lepek2").value.toLowerCase()=="laskowska"){ pkt++;};
+	if(document.getElementById("lepek3").value.toLowerCase()=="bergson"){ pkt++;};
+	if(document.getElementById("lepek4").value.toLowerCase()=="nowinka"){ pkt++;};
+	if(document.getElementById("lepek5").value.toLowerCase()=="papek"){ pkt++;};
+	if(document.getElementById("lepek6").value.toLowerCase()=="nazarewska"){ pkt++;};
+	if(document.getElementById("lepek7").value.toLowerCase()=="piechowiak"){ pkt++;};
+	if(document.getElementById("lepek8").value.toLowerCase()=="szydłowska"){ pkt++;};
+	document.getElementById("tekst").innerHTML="Uzyskałeś "+pkt+" pktów na 9 możliwych";
+
+}
+//funkcja rozpoczynająca grę
+	function startMe(){
+		console.log("FUNKCJA START");
+		if (!isTimerOn) {
+			isTimerOn = true;
+			etap_1();
+
+		} else {
+			etap_1();
+		}
+
+	}
+</script>
+
+
+
+<!-- // Intrukcja -->
+<div class="container main mx-auto">
+   
+   <div class="alert alert-light alert-lg text-center" role="alert">
+    <strong class="text-uppercase display-4 font-weight-bold">Jak się nazywam...</strong> 
+</div>
+
+
+<ul class="list-group h2">
+  <li class="list-group-item subtitles d-flex justify-content-between align-items-center">
+   Zadaniem jest zapamiętanie nazwiska danej osoby
+    <span class="badge badge-primary badge-pill" style="background-color: #dad7eb; color:black">1</span>
+  </li>
+  
+  <li class="list-group-item subtitles d-flex justify-content-between align-items-center">
+   Będzie 30 sekund na zapamiętanie poszczególnych nazwisk (wielkość liter jest bez znaczenia)
+    <span class="badge badge-primary badge-pill"style="background-color: #dad7eb; color:black">2</span>
+  </li>
+  <li class="list-group-item subtitles d-flex justify-content-between align-items-center">
+   Następnie 30 sekund na przyporządkowanie zdjęc bohaterów do ich nazwisk
+    <span class="badge badge-primary badge-pill" style="background-color: #dad7eb; color:black">3</span>
+  </li>
+  
+   <li class="list-group-item subtitles d-flex justify-content-between align-items-center">
+   Postępuj zgodnie z instrukcjami Dr Szydłowskiego
+    <span class="badge badge-primary badge-pill" style="background-color: #dad7eb; color:black">4</span>
+       
+
+  </li>
+</ul>
+
+</div>
+<!-- //GRA -->
+
+<div class="main mx-auto" id="gra">
+
+	<form>
+		<div class="container">
+			<div class="row">
+
+				<input type="button" class="btn col-12 btn btn-lg btn-primary my-3 text-monospace shadow-lg p-3 mb-5 rounded"  id="akcja" value="Rozpocznij" onclick="startMe()">
+
+
+			</div>
+		</div>
+
+		<div class="container " style="height: 400px">
+			<div class="row">
+
+				<div class="col-sm-4 border-primary " style="font-size:130%;border: 2px solid blue;border-radius:30px 30px 0px 30px; height: 200px;" >
+					<p class="mx-20" style="font-family:verdana;" id="tekst">Jeśli znasz zasady kliknij przycisk Rozpocznij </p>
+			
+
+				</div>
+				<div class="col-sm-7 col-offset-1" >
+				<img src="img/doctor2.svg" class="img-fluid mx-auto d-block " style="weight: 20%; height: 30%" alt="doktor" >
+				</div>
+
+			</div>
+		</div>
+
+
+
+		<div class="container">
+			<div class="row">
+
+				<input class="col-6 h-25 btn-lg mx-auto d-block my-3 shadow-lg p-3 mb-5" type="text" id="stoper" readonly="readonly" style="border-radius: 15px; border:1px solid blue;text-align: center" />
+
+
+			</div>
+		</div>
+
+
+	</form>
+<!-- Czyszczenie otaczania -->
+<div style="clear:both"></div>
+<!-- TUTAJ BĘDA ZAŁADOWANE OBRAZKI -->
+
+<div class="mojkontener">
+	<!-- obrazki -->
+
+	<!-- pojedynczy obrazek -->
+<div class="obrazek" id="postac0">
+	
+		<img src="img/postaci/0.jpeg"/>
+		<input type="text" value="Szarata" id="lepek0">
+	</div>
+	<!-- koniec pojedynczego obrazka -->
+
+<!-- pojedynczy obrazek -->
+<div class="obrazek" id="postac1">
+	
+		<img src="img/postaci/1.jpeg"/>
+		<input type="text" value="Ojczenasz" id="lepek1">
+	</div>
+	<!-- koniec pojedynczego obrazka -->
+
+	<!-- pojedynczy obrazek -->
+<div class="obrazek" id="postac2">
+	
+		<img src="img/postaci/2.jpeg"/>
+		<input type="text" value="Laskowska" id="lepek2">
+	</div>
+	<!-- koniec pojedynczego obrazka -->
+
+	<!-- pojedynczy obrazek -->
+<div class="obrazek" id="postac3">
+	
+		<img src="img/postaci/3.jpeg"/>
+		<input type="text" value="Bergson" id="lepek3">
+	</div>
+	<!-- koniec pojedynczego obrazka -->
+
+<!-- pojedynczy obrazek -->
+<div class="obrazek" id="postac4">
+	
+		<img src="img/postaci/4.jpeg"/>
+		<input type="text" value="Nowinka" id="lepek4">
+	</div>
+	<!-- koniec pojedynczego obrazka -->
+
+	<!-- pojedynczy obrazek -->
+<div class="obrazek" id="postac5">
+	
+		<img src="img/postaci/5.jpeg"/>
+		<input type="text" value="Papek" id="lepek5">
+	</div>
+	<!-- koniec pojedynczego obrazka -->
+
+
+	<!-- pojedynczy obrazek -->
+<div class="obrazek" id="postac6">
+	
+		<img src="img/postaci/6.jpeg"/>
+		<input type="text" value="Nazarewska"  id="lepek6">
+	</div>
+	<!-- koniec pojedynczego obrazka -->
+
+<!-- pojedynczy obrazek -->
+<div class="obrazek" id="postac7">
+	
+		<img src="img/postaci/7.jpeg"/>
+		<input type="text" value="Piechowiak" id="lepek7">
+	</div>
+	<!-- koniec pojedynczego obrazka -->
+
+	<!-- pojedynczy obrazek -->
+<div class="obrazek" id="postac8">
+	
+		<img src="img/postaci/8.jpeg"/>
+		<input type="text" value="Szydłowska"  id="lepek8">
+	</div>
+	<!-- koniec pojedynczego obrazka -->
+
+</div>
+
+
+</div>
+	<!-- Koniec diva main -->				
+			
+<!-- //STOPKA
+ -->
+<div class="main w-100 mx-auto">
+	<footer class="page-footer footerMain font-small pt-2 ">
+
+		<!-- Footer Links -->
+		<div class="container-fluid text-center text-md-left">
+
+
+			<!-- Grid row -->
+			<div class="row shadow-lg p-3 mb-5 rounded align-items-center">
+
+				<!-- Grid column -->
+				<div class="col-md-3 mt-md-0 mt-3 text-center">
+
+					<!-- Content -->
+					<i class="fas fa-brain fa-2x text-secondary"></i><h4> MistrzPamieci.pl
+						<h4>
+							
+							<div class="container mx-auto d-block ">
+								<div class="row ">
+									<div class=" d-sm-block mx-auto">										
+										
+									</div>
+								</div>
+							</div>
+				</div>
+
+
+				<div class="col-md-6 mt-md-0 mt-3">
+
+					<h5 class="text-center font-weight-bold">Umysł w świetnej kondycji</h5>
+					<ul class="list-unstyled text-center">
+						<li>
+							<p>Pamięć</p>
+						</li>
+
+						<li>
+							<p>Wyobraźnia</p>
+						</li>
+						<li>
+							<p>Koncentracja</p>
+						</li>
+
+						<li>
+							<p>Spostrzegawczość</p>
+						</li>
+
+
+					</ul>
+
+				</div>
+
+				<hr class="clearfix w-100 d-md-none pb-3">
+
+
+				<div class="col-md-3 mb-md-0 mb-2">
+
+
+					<div class="contactIcons mx-auto">
+						<a href="mailto:info@mistrzpamieci.pl" target="_blank"><i class="fas fa-envelope fontelloCard" title="e-mail"> </i></a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-copyright text-center py-3 font-">© 2018 Copyright: Danuta Nazarewska, Dorota Turkowska, Dariusz Szydłowski. All right reserved.
+
+		</div>
+
+	</footer>
+</div>
+<style>
+.mojkontener{
+	width:1000px;
+	margin-right:auto;
+	margin-left:auto;
+	padding:0;
+	text-align:center;
+}
+.obrazek{
+	display:inline-block;
+	margin:0;
+	padding:0;
+	width:250px;
+	height:180px;
+	overflow: hidden;
+	position: relative;
+}
+.obrazek img{
+	width:100%;
+	height:100%;
+	border-radius: 20px;
+}
+.obrazek input[type="text"]{
+	position:absolute;
+	bottom:0;
+	left:30px;
+	text-align:center;
+	opacity:0.7;
+	border-radius:10px;
+	font-family:Arial;
+	font-weight:700;
+}
+</style>
+
+
